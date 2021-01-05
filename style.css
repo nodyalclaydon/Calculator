@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --displayfont: 'Orbitron', sans-serif;
+    --btnfont: 'Work Sans', sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 150px 1fr;
+    border: royalblue solid 1px;
+    width: 20em;
+    height: 30em;
+    margin: 5em auto;
+    border-radius: 10px;
+    padding: 1em;
+    background: royalblue;
+    box-shadow: 2px 1px 5px #000, -1px 1px 8px #ccc;
+}
+
+.display-screen {
+    width: 90%;
+    margin: 2em auto 3em;
+    background: lightgrey;
+    grid-column-start: span 4;
+    border-radius: 2px;
+    padding: .5em;
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,.5), inset -2px -2px 4px rgba(0,0,0,.5);
+}
+
+.display {
+    font-family: var(--displayfont);
+    font-size: 2.5rem;
+    color: rgba(0, 0, 0, .7);
+    text-align: right;
+}
+
+.btn {
+    font-family: var(--btnfont);
+    height: 2em;
+    border-radius: 2px;
+    padding: .25em;
+    box-shadow: 2px 1px 3px rgba(0,0,0,.5), -1px 1px 3px rgba(0,0,0,.5);
+    cursor: pointer;
+}
+
+.num { background: white; }
+.red { background: crimson; }
+.big-red {
+    background: crimson;
+    height: 5.5em;
+    grid-row: 6 / span 2;
+    grid-column: 4;
+}
