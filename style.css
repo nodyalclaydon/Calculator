@@ -20,17 +20,18 @@
     border-radius: 10px;
     padding: 1em;
     background: royalblue;
-    box-shadow: 2px 1px 5px #000, -1px 1px 8px #ccc;
+    box-shadow: 8px 8px 20px rgba(0,0,0,.5), -3px 3px 10px rgba(0,0,0,.5);
 }
 
 .display-screen {
-    width: 90%;
+    width: 95%;
     margin: 2em auto 3em;
     background: lightgrey;
     grid-column-start: span 4;
     border-radius: 2px;
     padding: .5em;
     box-shadow: inset 2px 2px 4px rgba(0,0,0,.5), inset -2px -2px 4px rgba(0,0,0,.5);
+    overflow-x: scroll;
 }
 
 .display {
@@ -40,20 +41,45 @@
     text-align: right;
 }
 
-.btn {
+/* BUTTON STUFF */
+
+.btn,
+.clear {
     font-family: var(--btnfont);
     height: 2em;
     border-radius: 2px;
     padding: .25em;
     box-shadow: 2px 1px 3px rgba(0,0,0,.5), -1px 1px 3px rgba(0,0,0,.5);
     cursor: pointer;
+    transition: transform 300ms;
 }
 
-.num { background: white; }
-.red { background: crimson; }
-.big-red {
-    background: crimson;
+.num { 
+    background: white; 
+    color: royalblue;
+    font-weight: 700;
+}
+.red,
+.equals,
+.clear { 
+    background: crimson; 
+    color: white;
+    font-weight: 700;
+}
+.equals {
     height: 5.5em;
     grid-row: 6 / span 2;
     grid-column: 4;
+    border-radius: 2px;
+    padding: .25em;
+    box-shadow: 2px 1px 3px rgba(0,0,0,.5), -1px 1px 3px rgba(0,0,0,.5);
+    cursor: pointer;
+    font-family: var(--btnfont);
+    transition: transform 300ms;
+}
+
+.btn:active,
+.equals:active,
+.clear:active {
+    transform: scale(0.9);
 }
