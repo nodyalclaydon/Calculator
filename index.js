@@ -1,5 +1,5 @@
-let displayNum = ""
-let invisibleNum = ""
+let displayNum = 0
+let invisibleNum = 0
 const display = document.querySelector(".display")
 const numBtn = document.querySelectorAll(".num")
 const redBtn = document.querySelectorAll(".red")
@@ -14,37 +14,45 @@ for(i =0; i < redBtn.length; i++){
 
 function handleNumClick(e) {
     const key = e.target.innerHTML
-    if ((displayNum === "0") || (displayNum != invisibleNum)) {
+    if (displayNum === 0 && invisibleNum === 0) {
+        displayNum = key
+        invisibleNum = key
+        display.innerHTML = displayNum
+        console.log("one!")
+    } else if (display.innerHTML.length >= 9) {
+        displayNum = 0
+        invisibleNum = 0
+        display.innerHTML = "Err"
+        console.log("two!")
+    } else if (displayNum != invisibleNum && displayNum === 0) {
         displayNum = key
         invisibleNum = invisibleNum + key
         display.innerHTML = displayNum
-    } if (displayNum.length >= 9) {
-        displayNum = "0"
-        invisibleNum = ""
-        display.innerHTML = "Err"
-    } else {
+        console.log("three!")
+    }else {
         displayNum = displayNum + key
         invisibleNum = invisibleNum + key
         display.innerHTML = displayNum
+        console.log("four!")
     }
 }
 
 function handleRedClick(e) {
     const key = e.target.innerHTML
     invisibleNum = invisibleNum + key
+    displayNum = 0
     console.log(invisibleNum)
 }
 
 document.querySelector(".clear").addEventListener("click", () => {
-    displayNum = "0"
-    display.innerHTML = displayNum
-    console.log(displayNum)
+    displayNum = 0
+    invisibleNum = 0
+    display.innerHTML = "0"
 })
 
 document.getElementById("calculate").addEventListener("click", equate)
 
 function equate() {
     invisibleNum = eval(invisibleNum)
-    displayNum = invisibleNum
-    display.innerHTML = displayNum
+    display.innerHTML = invisibleNum
 }
