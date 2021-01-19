@@ -4,34 +4,37 @@
         <link href="style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <title>Calculator</title>
     </head>
     <body>
         <div class="container">
-            <div class="display-screen"><h2 class="display">0</h2></div>
-            <div class="btn red">+/-</div>
-            <div class="btn red">√</div>
-            <div class="btn red">%</div>
-            <div class="btn red">/</div>
-            <div class="btn red">MRC</div>
-            <div class="btn red">M-</div>
-            <div class="btn red">M+</div>
-            <div class="btn red">*</div>
-            <div class="btn num">7</div>
-            <div class="btn num">8</div>
-            <div class="btn num">9</div>
-            <div class="btn red">-</div>
-            <div class="btn num">4</div>
-            <div class="btn num">5</div>
-            <div class="btn num">6</div>
-            <div class="btn red">+</div>
-            <div class="btn num">1</div>
-            <div class="btn num">2</div>
-            <div class="btn num">3</div>
-            <div class="equals" id="calculate">=</div>
-            <div class="clear">on/c</div>
-            <div class="btn num">0</div>
-            <div class="btn num">.</div>
+            <div class="display-screen"><h2 data-currentDisplay class="display">0</h2></div>
+            <div data-operation class="btn red">+/-</div>
+            <div data-operation class="btn red">√</div>
+            <div data-operation class="btn red">%</div>
+            <div data-operation class="btn red">/</div>
+            <div data-operation class="btn red">MRC</div>
+            <div data-operation class="btn red">M-</div>
+            <div data-operation class="btn red">M+</div>
+            <div data-operation class="btn red">*</div>
+            <div data-number class="btn num">7</div>
+            <div data-number class="btn num">8</div>
+            <div data-number class="btn num">9</div>
+            <div data-operation class="btn red">-</div>
+            <div data-number class="btn num">4</div>
+            <div data-number class="btn num">5</div>
+            <div data-number class="btn num">6</div>
+            <div data-operation class="btn red">+</div>
+            <div data-number class="btn num">1</div>
+            <div data-number class="btn num">2</div>
+            <div data-number class="btn num">3</div>
+            <div data-equals class="equals" id="calculate">=</div>
+            <div data-clear class="clear">on/c</div>
+            <div data-number class="btn num">0</div>
+            <div data-number class="btn num">.</div>
         </div>
+
+        <div data-previousDisplay class="prev-display"></div>
 
         <script src="index.js"></script>
     </body>

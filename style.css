@@ -41,6 +41,14 @@
     text-align: right;
 }
 
+.prev-display {
+    font-family: var(--displayfont);
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, .5);
+}
+
 /* BUTTON STUFF */
 
 .btn,
