@@ -1,58 +1,115 @@
-let displayNum = 0
-let invisibleNum = 0
-const display = document.querySelector(".display")
-const numBtn = document.querySelectorAll(".num")
-const redBtn = document.querySelectorAll(".red")
+class Calculator {
+    constructor(previousDisplay, currentDisplay) {
+        this.previousDisplay = previousDisplay
+        this.currentDisplay = currentDisplay
+        this.clear()
+    }
 
-for(i =0; i < numBtn.length; i++){
-    numBtn[i].addEventListener("click", handleNumClick)
-}
+    clear() {
+        this.currentOperand = ""
+        this.previousOperand = ""
+        this.operation = undefined
+    }
 
-for(i =0; i < redBtn.length; i++){
-    redBtn[i].addEventListener("click", handleRedClick)
-}
+    appendNumber(number) {
+        if (number === "." && this.currentOperand.includes(".")) return
+        this.currentOperand = this.currentOperand.toString() + number.toString()
+    }
 
-function handleNumClick(e) {
-    const key = e.target.innerHTML
-    if (displayNum === 0 && invisibleNum === 0) {
-        displayNum = key
-        invisibleNum = key
-        display.innerHTML = displayNum
-        console.log("one!")
-    } else if (display.innerHTML.length >= 9) {
-        displayNum = 0
-        invisibleNum = 0
-        display.innerHTML = "Err"
-        console.log("two!")
-    } else if (displayNum != invisibleNum && displayNum === 0) {
-        displayNum = key
-        invisibleNum = invisibleNum + key
-        display.innerHTML = displayNum
-        console.log("three!")
-    }else {
-        displayNum = displayNum + key
-        invisibleNum = invisibleNum + key
-        display.innerHTML = displayNum
-        console.log("four!")
+    chooseOperation(operation) {
+        if (this.currentOperand === "") return
+        if (this.currentOperand !== "") {
+            this.compute()
+        }
+        this.operation = operation
+        this.previousOperand = this.currentOperand
+        this.currentOperand = ""
+    }
+
+    compute() {
+        let computation
+        const prev = parseFloat(this.previousOperand)
+        const current = parseFloat(this.currentOperand)
+        if (isNaN(prev) || isNaN(current)) return
+        switch (this.operation) {
+            case "+":
+                computation = prev + current
+                break
+            case "-":
+                computation = prev - current
+                break
+            case "*":
+                computation = prev * current
+                break
+            case "/":
+                computation = prev / current
+                break
+            default:
+                return
+        }
+        this.currentOperand = computation
+        this.operation = undefined
+        this.previousOperand = ""
+    }
+
+    getDisplayNumber(number) {
+        const stringNumber = number.toString()
+        const integerDigits = parseFloat(stringNumber.split(".")[0])
+        const decimalDigits = stringNumber.split(".")[1]
+        const floatNumber = parseFloat(number)
+        let integerDisplay
+        if (isNaN(integerDigits)) {
+            integerDisplay = ""
+        } else {
+            integerDisplay = integerDigits.toLocaleString("en", { maximumFractionDigits: 0 })
+        }
+        if (decimalDigits != null) {
+            return `${integerDisplay}.${decimalDigits}`
+        } else {
+            return integerDisplay
+        }
+    }
+
+    updateDisplay() {
+        this.currentDisplay.innerText = this.getDisplayNumber(this.currentOperand)
+        if (this.operation != null) {
+            this.previousDisplay.innerText = 
+            `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+        } else {
+            this.previousDisplay.innerText = ""
+        }
     }
 }
 
-function handleRedClick(e) {
-    const key = e.target.innerHTML
-    invisibleNum = invisibleNum + key
-    displayNum = 0
-    console.log(invisibleNum)
-}
+const numberBtns = document.querySelectorAll('[data-number]')
+const operationBtns = document.querySelectorAll('[data-operation]')
+const equalsBtn = document.querySelector('[data-equals]')
+const clearBtn = document.querySelector('[data-clear]')
+const currentDisplay = document.querySelector('[data-currentDisplay]')
+const previousDisplay = document.querySelector('[data-previousDisplay]')
 
-document.querySelector(".clear").addEventListener("click", () => {
-    displayNum = 0
-    invisibleNum = 0
-    display.innerHTML = "0"
+const calculator = new Calculator(previousDisplay, currentDisplay)
+
+numberBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        calculator.appendNumber(button.innerText)
+        calculator.updateDisplay()
+    })
 })
 
-document.getElementById("calculate").addEventListener("click", equate)
+operationBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        calculator.chooseOperation(button.innerText)
+        calculator.updateDisplay()
+    })
+})
 
-function equate() {
-    invisibleNum = eval(invisibleNum)
-    display.innerHTML = invisibleNum
-}
+equalsBtn.addEventListener("click", button => {
+    calculator.compute()
+    calculator.updateDisplay()
+})
+
+clearBtn.addEventListener("click", button => {
+    calculator.clear()
+    calculator.updateDisplay()
+})
