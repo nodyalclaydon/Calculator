@@ -38,10 +38,10 @@ class Calculator {
             case "-":
                 computation = prev - current
                 break
-            case "*":
+            case "×":
                 computation = prev * current
                 break
-            case "/":
+            case "÷":
                 computation = prev / current
                 break
             default:
@@ -79,12 +79,51 @@ class Calculator {
             this.previousDisplay.innerText = ""
         }
     }
+
+    squareRoot() {
+        const current = parseFloat(this.currentOperand)
+        this.currentOperand = Math.sqrt(current)
+        this.operation = undefined
+        this.previousOperand = ""
+    }
+
+    plusMinus() {
+        const current = parseFloat(this.currentOperand)
+        this.currentOperand = 0 - current
+    }
+
+    percent() {
+        const current = parseFloat(this.currentOperand)
+        this.currentOperand = current / 100
+    }
+
+    handleMrc(mrc) {
+        let compute = ""
+        const current = this.currentOperand
+
+        if (mrc === "MRC" && mrcNumber === "") {
+            mrcNumber = current
+            this.currentOperand = ""
+        } else if (mrc === "M-") {
+            compute = current - mrcNumber
+        } else if (mrc === "M+") {
+            compute = parseFloat(current) + parseFloat(mrcNumber)
+        } else if (mrc === "MRC" && mrcNumber != "") {
+            mrcNumber = ""
+        }
+        this.currentOperand = compute
+    }
 }
 
+let mrcNumber = ""
 const numberBtns = document.querySelectorAll('[data-number]')
 const operationBtns = document.querySelectorAll('[data-operation]')
 const equalsBtn = document.querySelector('[data-equals]')
 const clearBtn = document.querySelector('[data-clear]')
+const sqrtBtn = document.querySelector('[data-squareroot]')
+const plusMinusBtn = document.querySelector('[data-plusminus]')
+const percentBtn = document.querySelector('[data-percent]')
+const mrcBtns = document.querySelectorAll('[data-mrc]')
 const currentDisplay = document.querySelector('[data-currentDisplay]')
 const previousDisplay = document.querySelector('[data-previousDisplay]')
 
@@ -112,4 +151,26 @@ equalsBtn.addEventListener("click", button => {
 clearBtn.addEventListener("click", button => {
     calculator.clear()
     calculator.updateDisplay()
+})
+
+sqrtBtn.addEventListener("click", button => {
+    calculator.squareRoot()
+    calculator.updateDisplay()
+})
+
+plusMinusBtn.addEventListener("click", button => {
+    calculator.plusMinus()
+    calculator.updateDisplay()
+})
+
+percentBtn.addEventListener("click", button => {
+    calculator.percent()
+    calculator.updateDisplay()
+})
+
+mrcBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        calculator.handleMrc(button.innerText)
+        calculator.updateDisplay()
+    })
 })
